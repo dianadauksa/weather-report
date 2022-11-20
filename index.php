@@ -11,12 +11,12 @@ use function App\{
     showCurrentWeather,
     showWeatherForecast
 };
-
-echo "Get weather report!" . PHP_EOL;
+echo PHP_EOL;
+echo "🌦 Get your weather report!" . PHP_EOL;
 echo "1. Show current weather" . PHP_EOL;
 echo "2. Show weather forecast for next 3 days" . PHP_EOL;
 echo "3. Exit" . PHP_EOL;
-$selection = intval(readline("Input number (1-3): "));
+$selection = intval(readline("Select your choice (1-3): "));
 
 switch ($selection) {
     case 1:
