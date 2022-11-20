@@ -6,14 +6,12 @@ use Cmfcmf\OpenWeatherMap;
 use Cmfcmf\OpenWeatherMap\{CurrentWeather, WeatherForecast, Exception as OWMException};
 use Http\Factory\Guzzle\RequestFactory;
 use Http\Adapter\Guzzle6\Client as GuzzleAdapter;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
 function fetchCurrentWeather(string $city, string $units = "metric", string $language = "en"): ?CurrentWeather
 {
     $httpRequestFactory = new RequestFactory();
     $httpClient = GuzzleAdapter::createWithConfig([]);
-    $cache = new FilesystemAdapter();
-    $owm = new OpenWeatherMap(API_KEY, $httpClient, $httpRequestFactory, $cache);
+    $owm = new OpenWeatherMap(API_KEY, $httpClient, $httpRequestFactory);
     try {
         $weather = $owm->getWeather($city, $units, $language);
     } catch (OWMException $e) {
@@ -27,8 +25,7 @@ function fetchWeatherForecast(string $city, int $days = 3, string $units = "metr
 {
     $httpRequestFactory = new RequestFactory();
     $httpClient = GuzzleAdapter::createWithConfig([]);
-    $cache = new FilesystemAdapter();
-    $owm = new OpenWeatherMap(API_KEY, $httpClient, $httpRequestFactory, $cache);
+    $owm = new OpenWeatherMap(API_KEY, $httpClient, $httpRequestFactory);
     try {
         $weather = $owm->getWeatherForecast($city, $units, $language, '', $days);
     } catch (OWMException $e) {
