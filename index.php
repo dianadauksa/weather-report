@@ -33,7 +33,6 @@ $city = $_GET['city'] ?? 'Riga';
         <form action="index.php" method="get">
             Enter your city <input type="text" name="city"><br>
             <input type="submit" value="See weather">
-            <a href="/?city=Riga">Back</a>
             <?php
             echo "<br>";
             $currentWeather = fetchCurrentWeather($city);
