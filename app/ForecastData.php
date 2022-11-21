@@ -35,8 +35,13 @@ class ForecastData
         return $this->getForecast()->temperature->getFormatted();
     }
 
-    public function getWeather(): string
+    public function getWeatherDescription(): string
     {
         return $this->getForecast()->weather->description;
+    }
+
+    public function getWeatherIconURL(): string
+    {
+        return $this->getForecast()->weather->getIconUrl();
     }
 }

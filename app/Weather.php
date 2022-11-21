@@ -6,50 +6,55 @@ use Cmfcmf\OpenWeatherMap\CurrentWeather;
 
 class Weather
 {
-    private CurrentWeather $weatherData;
+    private CurrentWeather $currentWeather;
 
-    public function __construct(CurrentWeather $weatherData)
+    public function __construct(CurrentWeather $currentWeather)
     {
-        $this->weatherData = $weatherData;
+        $this->currentWeather = $currentWeather;
     }
 
-    private function getWeatherData(): CurrentWeather
+    private function getWeather(): CurrentWeather
     {
-        return $this->weatherData;
+        return $this->currentWeather;
     }
 
     public function getCity(): string
     {
-        return $this->getWeatherData()->city->name;
+        return $this->getWeather()->city->name;
     }
 
     public function getCountry(): string
     {
-        return $this->getWeatherData()->city->country;
+        return $this->getWeather()->city->country;
     }
 
     public function getTemperature(): string
     {
-        return $this->getWeatherData()->temperature->getFormatted();
+        return $this->getWeather()->temperature->getFormatted();
     }
 
-    public function getWeather(): string
+    public function getWeatherDescription(): string
     {
-        return $this->getWeatherData()->weather->description;
+        return $this->getWeather()->weather->description;
     }
 
     public function getHumidity(): string
     {
-        return $this->getWeatherData()->humidity->getFormatted();
+        return $this->getWeather()->humidity->getFormatted();
     }
 
     public function getWindSpeed(): string
     {
-        return $this->getWeatherData()->wind->speed->getFormatted();
+        return $this->getWeather()->wind->speed->getFormatted();
     }
 
     public function getWindDirection(): string
     {
-        return $this->getWeatherData()->wind->direction->getUnit();
+        return $this->getWeather()->wind->direction->getUnit();
+    }
+
+    public function getWeatherIconURL(): ?string
+    {
+        return $this->getWeather()->weather->getIconUrl();
     }
 }

@@ -6,16 +6,16 @@ use Cmfcmf\OpenWeatherMap\{Forecast, WeatherForecast};
 
 class ForecastCollection
 {
-    private WeatherForecast $forecast;
+    private WeatherForecast $weatherForecast;
 
-    public function __construct(WeatherForecast $forecast)
+    public function __construct(WeatherForecast $weatherForecast)
     {
-        $this->forecast = $forecast;
+        $this->weatherForecast = $weatherForecast;
     }
 
     private function getForecastData(): WeatherForecast
     {
-        return $this->forecast;
+        return $this->weatherForecast;
     }
 
     public function getCity(): string

@@ -7,7 +7,11 @@ use Cmfcmf\OpenWeatherMap\{CurrentWeather, WeatherForecast, Exception as OWMExce
 use Http\Factory\Guzzle\RequestFactory;
 use Http\Adapter\Guzzle6\Client as GuzzleAdapter;
 
-function fetchCurrentWeather(string $city, string $units = "metric", string $language = "en"): ?CurrentWeather
+function fetchCurrentWeather(
+    string $city,
+    string $units = "metric",
+    string $language = "en"
+): ?CurrentWeather
 {
     $httpRequestFactory = new RequestFactory();
     $httpClient = GuzzleAdapter::createWithConfig([]);
@@ -15,13 +19,18 @@ function fetchCurrentWeather(string $city, string $units = "metric", string $lan
     try {
         $weather = $owm->getWeather($city, $units, $language);
     } catch (OWMException $e) {
-        echo "Weather report not available! :(" . PHP_EOL;
+        echo " ";
         return null;
     }
     return $weather;
 }
 
-function fetchWeatherForecast(string $city, int $days = 3, string $units = "metric", string $language = "en"): ?WeatherForecast
+function fetchWeatherForecast(
+    string $city,
+    int    $days = 3,
+    string $units = "metric",
+    string $language = "en"
+): ?WeatherForecast
 {
     $httpRequestFactory = new RequestFactory();
     $httpClient = GuzzleAdapter::createWithConfig([]);
@@ -29,29 +38,36 @@ function fetchWeatherForecast(string $city, int $days = 3, string $units = "metr
     try {
         $weather = $owm->getWeatherForecast($city, $units, $language, '', $days);
     } catch (OWMException $e) {
-        echo "Weather forecast not available! :(" . PHP_EOL;
+        echo " ";
         return null;
     }
     return $weather;
 }
 
-function showCurrentWeather(Weather $weatherData): void
+function showCurrentWeather(Weather $currentWeather): void
 {
-    echo PHP_EOL;
-    echo "Current weather in {$weatherData->getCity()}, {$weatherData->getCountry()}" . PHP_EOL;
-    echo "🌡 Average temperature >> {$weatherData->getTemperature()}" . PHP_EOL;
-    echo "🌥 Weather conditions >> {$weatherData->getWeather()}". PHP_EOL;
-    echo "💧 Humidity >> {$weatherData->getHumidity()}" . PHP_EOL;
-    echo "🌪 Wind >> {$weatherData->getWindDirection()} {$weatherData->getWindSpeed()}" . PHP_EOL;
+    echo "<img src='" . $currentWeather->getWeatherIconURL() . "'";
+    echo "<br>";
+    echo "<br>";
+    echo "Current weather in {$currentWeather->getCity()}, {$currentWeather->getCountry()} >> {$currentWeather->getWeatherDescription()}";
+    echo "<br>";
+    echo "🌡 Average temperature >> {$currentWeather->getTemperature()}";
+    echo "<br>";
+    echo "💧 Humidity >> {$currentWeather->getHumidity()}";
+    echo "<br>";
+    echo "🌪 Wind >> {$currentWeather->getWindDirection()} {$currentWeather->getWindSpeed()}";
+    echo "<br>";
 }
 
-function showWeatherForecast(ForecastCollection $weatherData, int $days = 3): void
+function showWeatherForecast(ForecastCollection $weatherForecast, int $days = 3): void
 {
-    echo PHP_EOL;
-    echo "Weather forecast for the next $days days in {$weatherData->getCity()}, {$weatherData->getCountry()}" . PHP_EOL;
-    while ($weatherData->canGetForecast()) {
-        $forecast = new ForecastData($weatherData->getWeatherForecast());
-        echo "{$forecast->getTime()} 🌡 {$forecast->getTemperature()} 🌥 {$forecast->getWeather()}" . PHP_EOL;
-        $weatherData->nextForecast();
+    echo "Weather forecast for next $days days in {$weatherForecast->getCity()}, {$weatherForecast->getCountry()}";
+    while ($weatherForecast->canGetForecast()) {
+        $forecast = new ForecastData($weatherForecast->getWeatherForecast());
+        echo "<br>";
+        echo "<img src='" . $forecast->getWeatherIconURL() . "'";
+        echo "<br>";
+        echo "{$forecast->getTime()} >> 🌡 {$forecast->getTemperature()} {$forecast->getWeatherDescription()}";
+        $weatherForecast->nextForecast();
     }
 }
