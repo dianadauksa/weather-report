@@ -27,7 +27,8 @@ $city = $_GET['city'] ?? 'Riga';
     </head>
     <body>
     <h1><?= "🌦 Get your weather report!" ?></h1>
-    <h2><a href="/?city=Riga">Riga</a>
+    <h2><a href="/">Home</a>
+        <a href="/?city=Riga">Riga</a>
         <a href="/?city=Tallinn">Tallinn</a>
         <a href="/?city=Vilnius">Vilnius</a></h2>
         <form action="index.php" method="get">

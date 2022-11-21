@@ -27,7 +27,7 @@ function fetchCurrentWeather(
 
 function fetchWeatherForecast(
     string $city,
-    int    $days = 3,
+    int    $days = 2,
     string $units = "metric",
     string $language = "en"
 ): ?WeatherForecast
@@ -59,7 +59,7 @@ function showCurrentWeather(Weather $currentWeather): void
     echo "<br>";
 }
 
-function showWeatherForecast(ForecastCollection $weatherForecast, int $days = 3): void
+function showWeatherForecast(ForecastCollection $weatherForecast, int $days = 2): void
 {
     echo "Weather forecast for next $days days in {$weatherForecast->getCity()}, {$weatherForecast->getCountry()}";
     while ($weatherForecast->canGetForecast()) {

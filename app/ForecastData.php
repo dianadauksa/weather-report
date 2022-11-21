@@ -4,6 +4,7 @@ namespace App;
 
 use Cmfcmf\OpenWeatherMap\Forecast;
 
+//could maybe use inheritance and extend Weather class
 class ForecastData
 {
     private Forecast $forecast;
