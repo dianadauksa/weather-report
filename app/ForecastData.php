@@ -26,9 +26,9 @@ class ForecastData
 
     public function getTime(): string
     {
-        return $this->getForecast()->time->from->setTimezone(
+        return $this->getForecast()->time->to->setTimezone(
             new \DateTimeZone($this->getTimeZone())
-        )->format("D j/m H:i");
+            )->format("D j/m H:i");
     }
 
     public function getTemperature(): string

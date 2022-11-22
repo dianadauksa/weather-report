@@ -27,7 +27,7 @@ function fetchCurrentWeather(
 
 function fetchWeatherForecast(
     string $city,
-    int    $days = 2,
+    int    $days = 1,
     string $units = "metric",
     string $language = "en"
 ): ?WeatherForecast
@@ -46,10 +46,9 @@ function fetchWeatherForecast(
 
 function showCurrentWeather(Weather $currentWeather): void
 {
-    echo "<img src='" . $currentWeather->getWeatherIconURL() . "'";
     echo "<br>";
-    echo "<br>";
-    echo "Current weather in {$currentWeather->getCity()}, {$currentWeather->getCountry()} >> {$currentWeather->getWeatherDescription()}";
+    echo "Current weather in {$currentWeather->getCity()}, {$currentWeather->getCountry()}, ";
+    echo $currentWeather->getWeatherDescription();
     echo "<br>";
     echo "🌡 Average temperature >> {$currentWeather->getTemperature()}";
     echo "<br>";
@@ -59,15 +58,32 @@ function showCurrentWeather(Weather $currentWeather): void
     echo "<br>";
 }
 
-function showWeatherForecast(ForecastCollection $weatherForecast, int $days = 2): void
+function showWeatherForecast(ForecastCollection $weatherForecast): void
 {
-    echo "Weather forecast for next $days days in {$weatherForecast->getCity()}, {$weatherForecast->getCountry()}";
     while ($weatherForecast->canGetForecast()) {
         $forecast = new ForecastData($weatherForecast->getWeatherForecast());
+        echo "<li>";
         echo "<br>";
         echo "<img src='" . $forecast->getWeatherIconURL() . "'";
         echo "<br>";
-        echo "{$forecast->getTime()} >> 🌡 {$forecast->getTemperature()} {$forecast->getWeatherDescription()}";
+        echo "<br>";
+        echo $forecast->getTime();
+        echo "<br>";
+        echo "🌡 {$forecast->getTemperature()}";
+        echo "<br>";
+        echo "{$forecast->getWeatherDescription()}";
+        echo "</li>";
         $weatherForecast->nextForecast();
     }
+}
+
+function showCurrentWeatherIcon(Weather $currentWeather): void
+{
+    echo "<img class='icon-image' src='" . $currentWeather->getWeatherIconURL() . "'";
+    echo "<br>";
+}
+
+function forecastIntro(ForecastCollection $weatherForecast): void
+{
+    echo "Weather forecast for the next 24h in {$weatherForecast->getCity()}, {$weatherForecast->getCountry()}";
 }

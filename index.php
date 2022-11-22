@@ -9,7 +9,9 @@ use function App\{
     fetchCurrentWeather,
     fetchWeatherForecast,
     showCurrentWeather,
-    showWeatherForecast
+    showWeatherForecast,
+    showCurrentWeatherIcon,
+    forecastIntro
 };
 
 $title = "Codelex Weather App";
@@ -19,6 +21,11 @@ $city = $_GET['city'] ?? 'Riga';
     <!doctype html>
     <html lang="en">
     <head>
+        <link rel="stylesheet" href="styles/styles.css"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
+              rel="stylesheet">
         <meta charset="UTF-8">
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -26,33 +33,60 @@ $city = $_GET['city'] ?? 'Riga';
         <title><?= $title ?></title>
     </head>
     <body>
-    <h1><?= "🌦 Get your weather report!" ?></h1>
-    <h2><a href="/">Home</a>
-        <a href="/?city=Riga">Riga</a>
-        <a href="/?city=Tallinn">Tallinn</a>
-        <a href="/?city=Vilnius">Vilnius</a></h2>
-        <form action="index.php" method="get">
-            Enter your city <input type="text" name="city"><br>
-            <input type="submit" value="See weather">
-            <?php
-            echo "<br>";
-            $currentWeather = fetchCurrentWeather($city);
-            if (isset($currentWeather)) {
-                $currentWeather = new Weather($currentWeather);
-                showCurrentWeather($currentWeather);
-            }
-            echo "<br>";
-            $weatherForecast = fetchWeatherForecast($city);
-            if (isset($weatherForecast)) {
-                $weatherForecast = new ForecastCollection($weatherForecast);
+    <section class="hero">
+        <nav>
+            <h1 class="logo"><?= "🌦 Get your weather report!" ?></h1>
+            <ul id="nav-list">
+                <li><a href="/">Home</a></li>
+                <li><a href="/?city=Riga">Riga</a></li>
+                <li><a href="/?city=Tallinn">Tallinn</a></li>
+                <li><a href="/?city=Vilnius">Vilnius</a></li>
+            </ul>
+        </nav>
+        <div class="main-area">
+            <div class="city-input">
+                <form action="index.php" method="get">
+                    <h2>Enter your city</h2><input type="text" name="city"><br>
+                    <input type="submit" value="See weather">
+                    <br>
+                </form>
+            </div>
+            <div class="home-city">
+                <div class="icon">
+                    <?php
+                    $currentWeather = fetchCurrentWeather($city);
+                    if (isset($currentWeather)) {
+                        $currentWeather = new Weather($currentWeather);
+                        showCurrentWeatherIcon($currentWeather);
+                    }
+                    ?>
+                </div>
+                <div class="description">
+                    <?php
+                    showCurrentWeather($currentWeather);
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="forecast-area">
+            <h3>
+                <?php
+                $weatherForecast = fetchWeatherForecast($city);
+                if (isset($weatherForecast)) {
+                    $weatherForecast = new ForecastCollection($weatherForecast);
+                    forecastIntro($weatherForecast);
+                }
+                ?>
+            </h3>
+            <ul id="forecast-list">
+                <?php
                 showWeatherForecast($weatherForecast);
-            }
-            echo "<br>";
-            ?>
-        </form>
+                ?>
+            </ul>
+        </div>
+    </section>
     </body>
     </html>
-
 <?php
 /*echo "1. Show current weather" . PHP_EOL;
 echo "2. Show weather forecast for next 3 days" . PHP_EOL;
