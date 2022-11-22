@@ -1,6 +1,6 @@
 # weather-report
 
-**PHP Script for an in-console weather reporting program**
+**PHP, HTML and CSS Script for a simple weather reporting program**
 
  * Project includes the use of OpenWeatherMap PHP API, in addition to official OpenWeatherMap API documentation, see also: https://christianflach.de/OpenWeatherMap-PHP-API/
 
@@ -10,6 +10,6 @@
  **Project features**
  - Enter a city of your interest;
  - Get current weather report in respective city;
- - Get 3 day weather forecast in respective city.
+ - Get a 24h weather forecast in respective city.
 
 
