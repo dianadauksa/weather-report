@@ -80,31 +80,3 @@ if (isset($weatherForecast)) {
     </section>
     </body>
     </html>
-<?php
-/*echo "1. Show current weather" . PHP_EOL;
-echo "2. Show weather forecast for next 3 days" . PHP_EOL;
-echo "3. Exit" . PHP_EOL;
-$selection = intval(readline("Select your choice (1-3): "));
-
-switch ($selection) {
-case 1:
-$city = readline("Enter city >> ");
-$weather = fetchCurrentWeather($city);
-if (isset($weather)) {
-$weather = new Weather($weather);
-showCurrentWeather($weather);
-}
-break;
-case 2:
-$city = readline("Enter city >> ");
-$weatherForecast = fetchWeatherForecast($city);
-if (isset($weatherForecast)) {
-$weatherForecast = new ForecastCollection($weatherForecast);
-showWeatherForecast($weatherForecast);
-}
-break;
-default:
-exit;
-}
-*/
-?>
