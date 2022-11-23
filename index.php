@@ -16,6 +16,15 @@ use function App\{
 
 $title = "Codelex Weather App";
 $city = $_GET['city'] ?? 'Riga';
+$currentWeather = fetchCurrentWeather($city);
+if (isset($currentWeather)) {
+    $currentWeather = new Weather($currentWeather);
+}
+
+$weatherForecast = fetchWeatherForecast($city);
+if (isset($weatherForecast)) {
+    $weatherForecast = new ForecastCollection($weatherForecast);
+}
 
 ?>
     <!doctype html>
@@ -53,35 +62,19 @@ $city = $_GET['city'] ?? 'Riga';
             </div>
             <div class="home-city">
                 <div class="icon">
-                    <?php
-                    $currentWeather = fetchCurrentWeather($city);
-                    if (isset($currentWeather)) {
-                        $currentWeather = new Weather($currentWeather);
-                        showCurrentWeatherIcon($currentWeather);
-                    }
-                    ?>
+                    <?php showCurrentWeatherIcon($currentWeather); ?>
                 </div>
                 <div class="description">
-                    <?php
-                    showCurrentWeather($currentWeather);
-                    ?>
+                    <?php showCurrentWeather($currentWeather); ?>
                 </div>
             </div>
         </div>
         <div class="forecast-area">
             <h3>
-                <?php
-                $weatherForecast = fetchWeatherForecast($city);
-                if (isset($weatherForecast)) {
-                    $weatherForecast = new ForecastCollection($weatherForecast);
-                    forecastIntro($weatherForecast);
-                }
-                ?>
+                <?php forecastIntro($weatherForecast); ?>
             </h3>
             <ul id="forecast-list">
-                <?php
-                showWeatherForecast($weatherForecast);
-                ?>
+                <?php showWeatherForecast($weatherForecast); ?>
             </ul>
         </div>
     </section>
