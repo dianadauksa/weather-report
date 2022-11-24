@@ -2,46 +2,55 @@
 
 namespace App;
 
+use App\Models\ForecastCollection;
+use App\Models\ForecastData;
+use App\Models\Weather;
 use Cmfcmf\OpenWeatherMap;
-use Cmfcmf\OpenWeatherMap\{CurrentWeather, WeatherForecast, Exception as OWMException};
-use Http\Factory\Guzzle\RequestFactory;
+use Cmfcmf\OpenWeatherMap\{CurrentWeather, Exception as OWMException, WeatherForecast};
 use Http\Adapter\Guzzle6\Client as GuzzleAdapter;
+use Http\Factory\Guzzle\RequestFactory;
 
-function fetchCurrentWeather(
-    string $city,
-    string $units = "metric",
-    string $language = "en"
-): ?CurrentWeather
+function apiConnection(): ?OpenWeatherMap
 {
     $httpRequestFactory = new RequestFactory();
     $httpClient = GuzzleAdapter::createWithConfig([]);
-    $owm = new OpenWeatherMap(API_KEY, $httpClient, $httpRequestFactory);
     try {
-        $weather = $owm->getWeather($city, $units, $language);
-    } catch (OWMException $e) {
-        echo " ";
-        return null;
+        return new OpenWeatherMap(API_KEY, $httpClient, $httpRequestFactory);
+    } catch (\InvalidArgumentException|\Exception $e) {
+        echo "Sorry, weather cannot be retrieved at this time";
     }
-    return $weather;
+    return null;
+}
+
+function fetchCurrentWeather(
+    OpenWeatherMap $openWeatherMap,
+    string         $city,
+    string         $units = "metric",
+    string         $language = "en"
+): ?CurrentWeather
+{
+    try {
+        return $openWeatherMap->getWeather($city, $units, $language);
+    } catch (OWMException|\Exception $e) {
+        echo "Try a different city";
+    }
+    return null;
 }
 
 function fetchWeatherForecast(
-    string $city,
-    int    $days = 1,
-    string $units = "metric",
-    string $language = "en"
+    OpenWeatherMap $openWeatherMap,
+    string         $city,
+    int            $days = 1,
+    string         $units = "metric",
+    string         $language = "en"
 ): ?WeatherForecast
 {
-    $httpRequestFactory = new RequestFactory();
-    $httpClient = GuzzleAdapter::createWithConfig([]);
-    $owm = new OpenWeatherMap(API_KEY, $httpClient, $httpRequestFactory);
     try {
-        $weather = $owm->getWeatherForecast($city, $units, $language, '', $days);
-    } catch (OWMException $e) {
-        echo " ";
-        return null;
+        return $openWeatherMap->getWeatherForecast($city, $units, $language, '', $days);
+    } catch (OWMException|\Exception $e) {
+        echo "Try a different city";
     }
-    return $weather;
+    return null;
 }
 
 function showCurrentWeather(Weather $currentWeather): void
@@ -52,9 +61,9 @@ function showCurrentWeather(Weather $currentWeather): void
     echo "<br>";
     echo "🌡 Average temperature >> {$currentWeather->getTemperature()}";
     echo "<br>";
-    echo "💧 Humidity >> {$currentWeather->getHumidity()}";
-    echo "<br>";
     echo "🌪 Wind >> {$currentWeather->getWindDirection()} {$currentWeather->getWindSpeed()}";
+    echo "<br>";
+    echo "💧 Humidity >> {$currentWeather->getHumidity()}";
     echo "<br>";
 }
 

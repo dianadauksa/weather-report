@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Cmfcmf\OpenWeatherMap\Forecast;
 
@@ -14,7 +14,7 @@ class ForecastData
         $this->forecast = $forecast;
     }
 
-    private function getForecast(): ?Forecast
+    private function getForecast(): Forecast
     {
         return $this->forecast;
     }
