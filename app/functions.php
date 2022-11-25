@@ -4,7 +4,6 @@ namespace App;
 
 use App\Models\ForecastCollection;
 use App\Models\ForecastData;
-use App\Models\Weather;
 use Cmfcmf\OpenWeatherMap;
 use Cmfcmf\OpenWeatherMap\{CurrentWeather, Exception as OWMException, WeatherForecast};
 use Http\Adapter\Guzzle6\Client as GuzzleAdapter;
