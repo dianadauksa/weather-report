@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Models\{Weather, ForecastCollection};
 use Cmfcmf\OpenWeatherMap;
-use Cmfcmf\OpenWeatherMap\{CurrentWeather, WeatherForecast};
 use function App\{apiConnection, fetchCurrentWeather, fetchWeatherForecast};
 
 class WeatherController extends BaseController

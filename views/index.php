@@ -1,8 +1,6 @@
 <?php
 
-use function App\{
-    showWeatherForecast
-};
+use function App\{showWeatherForecast};
 
 ?>
 <!doctype html>
