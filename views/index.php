@@ -1,9 +1,12 @@
 <?php
 
+use App\Models\{Weather, ForecastCollection};
+
+/** @var Weather $currentWeather
+ * @var ForecastCollection $weatherForecast
+ */
+
 use function App\{
-    forecastIntro,
-    showCurrentWeather,
-    showCurrentWeatherIcon,
     showWeatherForecast
 };
 
@@ -43,16 +46,26 @@ use function App\{
         </div>
         <div class="home-city">
             <div class="icon">
-                <?php showCurrentWeatherIcon($currentWeather); ?>
+                <img class='icon-image' src='<?= $currentWeather->getWeatherIconURL() ?>' alt="current weather icon">
+                <br>
             </div>
             <div class="description">
-                <?php showCurrentWeather($currentWeather); ?>
+                <br>
+                Current weather in
+                <?= "{$currentWeather->getCity()}, {$currentWeather->getCountry()}, {$currentWeather->getWeatherDescription()}" ?>
+                <br>
+                🌡 Average temperature >> <?= $currentWeather->getTemperature() ?>
+                <br>
+                🌪 Wind >> <?= "{$currentWeather->getWindDirection()} {$currentWeather->getWindSpeed()}" ?>
+                <br>
+                💧 Humidity >> <?= $currentWeather->getHumidity() ?>
+                <br>
             </div>
         </div>
     </div>
     <div class="forecast-area">
-        <h3>
-            <?php forecastIntro($weatherForecast); ?>
+        <h3>Weather forecast for the next 24h in
+            <?= "{$weatherForecast->getCity()}, {$weatherForecast->getCountry()}" ?>
         </h3>
         <ul id="forecast-list">
             <?php showWeatherForecast($weatherForecast); ?>

@@ -53,20 +53,6 @@ function fetchWeatherForecast(
     return null;
 }
 
-function showCurrentWeather(Weather $currentWeather): void
-{
-    echo "<br>";
-    echo "Current weather in {$currentWeather->getCity()}, {$currentWeather->getCountry()}, ";
-    echo $currentWeather->getWeatherDescription();
-    echo "<br>";
-    echo "🌡 Average temperature >> {$currentWeather->getTemperature()}";
-    echo "<br>";
-    echo "🌪 Wind >> {$currentWeather->getWindDirection()} {$currentWeather->getWindSpeed()}";
-    echo "<br>";
-    echo "💧 Humidity >> {$currentWeather->getHumidity()}";
-    echo "<br>";
-}
-
 function showWeatherForecast(ForecastCollection $weatherForecast): void
 {
     while ($weatherForecast->canGetForecast()) {
@@ -84,15 +70,4 @@ function showWeatherForecast(ForecastCollection $weatherForecast): void
         echo "</li>";
         $weatherForecast->nextForecast();
     }
-}
-
-function showCurrentWeatherIcon(Weather $currentWeather): void
-{
-    echo "<img class='icon-image' src='" . $currentWeather->getWeatherIconURL() . "'";
-    echo "<br>";
-}
-
-function forecastIntro(ForecastCollection $weatherForecast): void
-{
-    echo "Weather forecast for the next 24h in {$weatherForecast->getCity()}, {$weatherForecast->getCountry()}";
 }
