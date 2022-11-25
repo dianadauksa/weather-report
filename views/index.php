@@ -1,11 +1,5 @@
 <?php
 
-use App\Models\{Weather, ForecastCollection};
-
-/** @var Weather $currentWeather
- * @var ForecastCollection $weatherForecast
- */
-
 use function App\{
     showWeatherForecast
 };
