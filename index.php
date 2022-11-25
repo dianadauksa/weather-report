@@ -1,8 +1,12 @@
 <?php
 
+use Dotenv\Dotenv;
+
 require_once 'vendor/autoload.php';
-require_once 'app/constants.php';
 require_once 'app/functions.php';
+
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->safeLoad();
 
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $route) {
     $route->addRoute('GET', '/', ['App\Controllers\WeatherController', 'index']);
