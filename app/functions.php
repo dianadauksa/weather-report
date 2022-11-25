@@ -24,7 +24,7 @@ function fetchCurrentWeather(
     string         $language = "en"
 ): ?CurrentWeather
 {
-        return $openWeatherMap->getWeather($city, $units, $language);
+    return $openWeatherMap->getWeather($city, $units, $language);
 }
 
 function fetchWeatherForecast(
@@ -35,7 +35,7 @@ function fetchWeatherForecast(
     string         $language = "en"
 ): ?WeatherForecast
 {
-        return $openWeatherMap->getWeatherForecast($city, $units, $language, '', $days);
+    return $openWeatherMap->getWeatherForecast($city, $units, $language, '', $days);
 }
 
 function showWeatherForecast(ForecastCollection $weatherForecast): void

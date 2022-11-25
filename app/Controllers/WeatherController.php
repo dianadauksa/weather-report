@@ -7,22 +7,13 @@ use Cmfcmf\OpenWeatherMap;
 use Cmfcmf\OpenWeatherMap\{CurrentWeather, WeatherForecast};
 use function App\{apiConnection, fetchCurrentWeather, fetchWeatherForecast};
 
-class WeatherController
+class WeatherController extends BaseController
 {
     private ?OpenWeatherMap $openWeatherMap;
 
     public function __construct()
     {
         $this->openWeatherMap = apiConnection();
-    }
-
-    private function renderView(string $view, array $variables): ?array
-    {
-        if (count($variables)) {
-            extract($variables);
-        }
-        require_once "views/" . $view . ".php";
-        return $variables;
     }
 
     public function index(): array
@@ -35,6 +26,6 @@ class WeatherController
         $weatherForecast = fetchWeatherForecast($this->openWeatherMap, $city);
         $weatherForecast = new ForecastCollection($weatherForecast);
 
-        return self::renderView('index', compact('currentWeather', 'weatherForecast'));
+        return $this->render('index', compact('currentWeather', 'weatherForecast'));
     }
 }
