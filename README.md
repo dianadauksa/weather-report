@@ -1,6 +1,6 @@
 # weather-report
 
-**PHP, HTML and CSS code based projext for a simple weather reporting program**
+**PHP, HTML and CSS code based project for a simple weather reporting program**
 
  * Project includes the use of [OpenWeatherMap PHP API](https://packagist.org/packages/cmfcmf/openweathermap-php-api) package for accessing the OpenWeatherMap API data with PHP package, in addition to official OpenWeatherMap API documentation, see also [documentation for the package used](https://christianflach.de/OpenWeatherMap-PHP-API/). 
 
